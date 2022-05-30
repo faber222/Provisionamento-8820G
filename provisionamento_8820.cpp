@@ -12,7 +12,7 @@ int main() {
 
     do {
       string ponCpe, slot, vlan, mac, cpe;
-      int slotCpe, pon, w, x = 0, y = 0, z;
+      int slotCpe, pon, w = 0, x = 0, y = 0, z = 0;
 
       // variavel booleana usada para loop de modo de operacao
       bool cpeVerifica = false;
@@ -72,6 +72,7 @@ int main() {
       while (w >= 4094 || w <= 0) {
         cout << "Qual a vlan sera utilizada ?" << endl;
         cin >> vlan;
+        cout << endl;
         w = stoi(vlan);  // stoi converte o valor de vlan para inteiro
       }
 
@@ -92,12 +93,12 @@ int main() {
       int slotcpemgr = 500 + slotCpe;
 
       if (cpe == "142ng") {
-        cout << "Bridge downlink - Modo Router" << endl;
+        cout << "Copiar os valores de bridge downlink - Modo Router" << endl;
         cout << endl;
         cout << "bridge add 1-1-" << pon << "-" << slot
              << "/gpononu downlink vlan " << vlan << " tagged rg" << endl;
         cout << endl;
-        cout << "Habilitar CPE-MGR" << endl;
+        cout << "Para habilitar CPE-MGR, copiar os valores abaixo" << endl;
         cout << endl;
         cout << "cpe-mgr add local 1-1-" << pon << "-" << slotcpemgr
              << "/gponport gtp 1100000000" << endl;
@@ -108,19 +109,21 @@ int main() {
       }
 
       else if (cpe == "110g") {
-        cout << "Bridge downlink - Modo Bridge" << endl;
+        cout << "Copiar os valores de bridge downlink - Modo Bridge" << endl;
         cout << endl;
         cout << "bridge add 1-1-" << pon << "-" << slot
              << "/gpononu downlink vlan " << vlan << " tagged eth 1" << endl;
         cout << endl;
       }
 
-      cout << "Deseja provisionar novamente ? S/N" << endl;
+      cout << "Deseja provisionar novamente? S/N" << endl;
       cin >> saida;
       saida = toupper(saida);  // converte a string saida em maiusculo
       ponCpe.clear();          // limpa os valores de ponCpe
       slot.clear();            // limpa os valores de slot
       cpe.clear();             // limpa os valores de cpe
+      vlan.clear();            // limpa os valores de vlan
+      mac.clear();             // limpa os valores de mac
     } while (saida != 'N');
   } catch (...) {
     cout << "algum parametro nao foi reconhecido, encerrando programa..."
