@@ -17,11 +17,11 @@
 
   <img alt="License" src="https://img.shields.io/github/license/faber222/provisionamento_8820g?color=56BEB8">
 
-  <img alt="Github issues" src="https://img.shields.io/github/issues/faber222/provisionamento_8820g?color=56BEB8" /> -->
+  <img alt="Github issues" src="https://img.shields.io/github/issues/faber222/provisionamento_8820g?color=56BEB8" /> 
 
-  <img alt="Github forks" src="https://img.shields.io/github/forks/faber222/provisionamento_8820g?color=56BEB8" /> -->
+  <img alt="Github forks" src="https://img.shields.io/github/forks/faber222/provisionamento_8820g?color=56BEB8" /> 
 
-  <img alt="Github stars" src="https://img.shields.io/github/stars/faber222/provisionamento_8820g?color=56BEB8" /> -->
+  <img alt="Github stars" src="https://img.shields.io/github/stars/faber222/provisionamento_8820g?color=56BEB8" /> 
 </p>
 
  Status 
