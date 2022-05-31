@@ -49,8 +49,30 @@ int main() {
         }
 
         if (cpe == "router") {
-          cpeVerifica = true;
-          cpe = "142ng";
+          string cpeCaptura;
+          int cpeCapturaConvert;
+          cout << "Qual modelo de CPE voce esta utilizando?" << endl;
+          cout << "Digite o numero que corresponde a sua CPE" << endl;
+          cout << "1---142NG/142NW/121W/WiFiber 121AC" << endl;
+          cout << "2---1420g/R1" << endl;
+          cin >> cpeCaptura;
+          cpeCapturaConvert = stoi(cpeCaptura);
+          switch (cpeCapturaConvert) {
+            case 1:
+              cpeVerifica = true;
+              cpe = "142ng";
+              break;
+            case 2:
+              cpeVerifica = true;
+              cpe = "1420g";
+              break;
+            default:
+              cout << "Opcao invalida" << endl;
+              cpe.clear();
+              cpeCaptura.clear();
+              break;
+          }
+
         } else if (cpe == "bridge") {
           cpeVerifica = true;
           cpe = "110g";
@@ -92,7 +114,7 @@ int main() {
 
       int slotcpemgr = 500 + slotCpe;
 
-      if (cpe == "142ng") {
+      if (cpe == "142ng" || cpe == "1420g") {
         cout << "Copiar os valores de bridge downlink - Modo Router" << endl;
         cout << endl;
         cout << "bridge add 1-1-" << pon << "-" << slot
