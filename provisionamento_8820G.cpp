@@ -11,27 +11,40 @@ int main() {
     char saida;
 
     do {
-      string ponCpe, slot, vlan, mac, cpe;
-      int slotCpe, pon, w = 0, x = 0, y = 0, z = 0;
+      string ponCpe, slotCpe, vlanCpe, mac, cpe;
+      int slot, pon, vlan, w = 0, x = 0, y = 0, z = 0;
 
       // variavel booleana usada para loop de modo de operacao
       bool cpeVerifica = false;
 
       // loop usado para garantir selecao de pon correta
       while (y > 8 || y <= 0) {
-        cout << "Qual a PON que a CPE se encontra ?" << endl;
-        cin >> ponCpe;
+        while (ponCpe.size() != 1 || ponCpe == "0") {
+          cout << "Qual a PON que a CPE se encontra ?" << endl;
+          cin >> ponCpe;
+        }
         pon = stoi(ponCpe);  // stoi converte o valor de ponCpe para inteiro
         y = pon;
       }
 
       // loop usado para garantir a selecao de slot correto
       while (z > 64 || z <= 0) {
+        string slotSalvo;
         cout << "Qual o slot na PON que voce deseja provisionar a CPE ?"
              << endl;
-        cin >> slot;
-        slotCpe = stoi(slot);  // stoi converte o valor de slot para inteiro
-        z = slotCpe;
+        cin >> slotCpe;
+
+        for (auto& i : slotCpe) {
+          if (!isalnum(i)) {
+            break;
+          }
+          slotSalvo += i;
+        }
+        slot = stoi(slotSalvo);
+
+        // stoi converte o valor de slot para inteiro
+        z = slot;
+        slotSalvo.clear();
       }
 
       // loop booleano para cpeVerifica
@@ -92,10 +105,20 @@ int main() {
 
       // loop usado para garantir a selecao de vlan correta
       while (w >= 4094 || w <= 0) {
+        string vlanSalva;
         cout << "Qual a vlan sera utilizada ?" << endl;
-        cin >> vlan;
+        cin >> vlanCpe;
         cout << endl;
-        w = stoi(vlan);  // stoi converte o valor de vlan para inteiro
+        for (auto& i : vlanCpe) {
+          if (!isalnum(i)) {
+            break;
+          }
+          vlanSalva += i;
+        }
+
+        w = vlan =
+            stoi(vlanSalva);  // stoi converte o valor de vlan para inteiro
+        vlanCpe.clear();
       }
 
       cout << "Copiar e colar os comandos abaixo (linha por linha) no terminal "
@@ -112,7 +135,7 @@ int main() {
            << "/gpononu" << endl;
       cout << endl;
 
-      int slotcpemgr = 500 + slotCpe;
+      int slotcpemgr = 500 + slot;
 
       if (cpe == "142ng" || cpe == "1420g") {
         cout << "Copiar os valores de bridge downlink - Modo Router" << endl;
@@ -142,10 +165,10 @@ int main() {
       cin >> saida;
       saida = toupper(saida);  // converte a string saida em maiusculo
       ponCpe.clear();          // limpa os valores de ponCpe
-      slot.clear();            // limpa os valores de slot
+      slotCpe.clear();         // limpa os valores de slot
       cpe.clear();             // limpa os valores de cpe
-      vlan.clear();            // limpa os valores de vlan
-      mac.clear();             // limpa os valores de mac
+      // vlan.clear();            // limpa os valores de vlan
+      mac.clear();  // limpa os valores de mac
     } while (saida != 'N');
   } catch (...) {
     cout << "algum parametro nao foi reconhecido, encerrando programa..."
