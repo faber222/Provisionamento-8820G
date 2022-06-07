@@ -1,33 +1,30 @@
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Provisionamento_8820G" />
+  <img src="./.github/app.gif" alt="Provisionamento-8820G" />
 
   &#xa0;
 
-  <!-- <a href="https://provisionamento_8820g.netlify.app">Demo</a> -->
 </div>
 
-<h1 align="center">Provisionamento_8820G</h1>
+<h1 align="center">Provisionamento-8820G</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/faber222/provisionamento_8820g?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/faber222/provisionamento-8820g?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/faber222/provisionamento_8820g?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/faber222/provisionamento-8820g?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/faber222/provisionamento_8820g?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/faber222/provisionamento-8820g?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/faber222/provisionamento_8820g?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/faber222/provisionamento-8820g?color=56BEB8">
 
-  <img alt="Github issues" src="https://img.shields.io/github/issues/faber222/provisionamento_8820g?color=56BEB8" /> 
+  <img alt="Github issues" src="https://img.shields.io/github/issues/faber222/provisionamento-8820g?color=56BEB8" /> 
 
-  <img alt="Github forks" src="https://img.shields.io/github/forks/faber222/provisionamento_8820g?color=56BEB8" /> 
+  <img alt="Github forks" src="https://img.shields.io/github/forks/faber222/provisionamento-8820g?color=56BEB8" /> 
 
-  <img alt="Github stars" src="https://img.shields.io/github/stars/faber222/provisionamento_8820g?color=56BEB8" /> 
+  <img alt="Github stars" src="https://img.shields.io/github/stars/faber222/provisionamento-8820g?color=56BEB8" /> 
 </p>
 
- Status 
-
  <h4 align="center"> 
-	🚧  Provisionamento_8820G 🚀 Finished  🚧
+	🚧  Provisionamento-8820G 🚀 Finished  🚧
 </h4> 
 
 <hr> 
@@ -56,13 +53,13 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) in
 
 ```bash
 # Clone this project
-$ git clone https://github.com/faber222/provisionamento_8820g
+$ git clone https://github.com/faber222/provisionamento-8820g
 
 # Access
-$ cd provisionamento_8820g
+$ cd provisionamento-8820g
 
 # Install dependencies
-$ g++ provisionamento_8820.cpp -o {nome}
+$ g++ provisionamento-8820.cpp -o {nome}
 
 # Run the project on windows
 $ .\{nome}.exe
