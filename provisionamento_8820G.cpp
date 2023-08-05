@@ -26,6 +26,57 @@
 
 using namespace std;
 
+bool verificaPorta(string ponCpe) {
+  for (auto& i : ponCpe) {
+    if (!isalnum(i)) {
+      cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    int y = stoi(ponCpe);
+    if (y <= 8 && y > 0 && ponCpe.size() == 1) {
+      return true;
+    } else {
+      cerr << RED_TEXT "O valor da pon deve ser entre 1-8" RESET_TEXT << endl;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8" RESET_TEXT << endl;
+  }
+  return false;
+}
+
+bool verificaOnu(string slotCpe) {
+  for (auto& i : slotCpe) {
+    if (!isalnum(i)) {
+      cerr << RED_TEXT "O valor da onu deve ser entre um numero inteiro de 1-64" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    int y = stoi(slotCpe);
+    
+    if (y < 65 && y > 0) {
+      return true;
+    } else {
+      cerr << RED_TEXT "O valor da pon deve ser entre 1 - 64" RESET_TEXT << endl;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-64" RESET_TEXT << endl;
+  }
+  return false;
+}
+
+// bool verificaVlan(int w) {
+//   return false;
+// }
+
+// bool verificaMac() {
+//   return false;
+// }
+
 void helloMessage() {
   char pattern[100][100] = { GREEN_TEXT
           " ===================================================== ",
@@ -94,7 +145,7 @@ void printResultado(string mac, string cpe, int slot, int pon, int vlan) {
 
 int main() {
   try {
-    printf("\x1b[2J"); 
+    printf("\x1b[2J");
     helloMessage();
     char saida;
 
@@ -103,31 +154,20 @@ int main() {
       int slot, pon, vlan, w = 0, x = 0, y = 0, z = 0;
       bool cpeVerifica = false;
 
-      while (y > 8 || y <= 0) {
-        while (ponCpe.size() != 1 || ponCpe == "0") {
-          cout << "Qual a PON que a CPE se encontra ?" << endl;
-          cin >> ponCpe;
-        }
-        pon = stoi(ponCpe);
-        y = pon;
-      }
+      do {
+        cout << "Qual a PON que a CPE se encontra ?" << endl;
+        cin >> ponCpe;
+      } while (!verificaPorta(ponCpe));
 
-      while (z > 64 || z <= 0) {
-        string slotSalvo;
+      pon = stoi(ponCpe);
+
+      do {
         cout << "Qual o slot na PON que voce deseja provisionar a CPE ?"
           << endl;
         cin >> slotCpe;
+      } while (!verificaOnu(slotCpe));
 
-        for (auto& i : slotCpe) {
-          if (!isalnum(i)) {
-            break;
-          }
-          slotSalvo += i;
-        }
-        z = slot = stoi(slotSalvo);
-
-        slotSalvo.clear();
-      }
+      slot = stoi(slotCpe);
 
       while (!cpeVerifica) {
         string x;
