@@ -29,7 +29,7 @@ using namespace std;
 bool verificaPorta(string ponCpe) {
   for (auto& i : ponCpe) {
     if (!isalnum(i)) {
-      cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8" RESET_TEXT << endl;
+      cerr << BOLD_TEXT RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8!" RESET_TEXT << endl;
       return false;
     }
   }
@@ -38,11 +38,11 @@ bool verificaPorta(string ponCpe) {
     if (y <= 8 && y > 0 && ponCpe.size() == 1) {
       return true;
     } else {
-      cerr << RED_TEXT "O valor da pon deve ser entre 1-8" RESET_TEXT << endl;
+      cerr << BOLD_TEXT RED_TEXT "O valor da pon deve ser entre 1-8!" RESET_TEXT << endl;
     }
   }
   catch (const std::exception& e) {
-    cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8" RESET_TEXT << endl;
+    cerr << BOLD_TEXT RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-8!" RESET_TEXT << endl;
   }
   return false;
 }
@@ -50,35 +50,108 @@ bool verificaPorta(string ponCpe) {
 bool verificaOnu(string slotCpe) {
   for (auto& i : slotCpe) {
     if (!isalnum(i)) {
-      cerr << RED_TEXT "O valor da onu deve ser entre um numero inteiro de 1-64" RESET_TEXT << endl;
+      cerr << BOLD_TEXT RED_TEXT "O valor da onu deve ser entre um numero inteiro de 1-64!" RESET_TEXT << endl;
       return false;
     }
   }
   try {
     int y = stoi(slotCpe);
-    
+
     if (y < 65 && y > 0) {
       return true;
     } else {
-      cerr << RED_TEXT "O valor da pon deve ser entre 1 - 64" RESET_TEXT << endl;
+      cerr << BOLD_TEXT RED_TEXT "O valor da pon deve ser entre 1-64!" RESET_TEXT << endl;
     }
   }
   catch (const std::exception& e) {
-    cerr << RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-64" RESET_TEXT << endl;
+    cerr << BOLD_TEXT RED_TEXT "O valor da pon deve ser entre um numero inteiro de 1-64!" RESET_TEXT << endl;
   }
   return false;
 }
 
-// bool verificaVlan(int w) {
-//   return false;
-// }
+bool verificaVlan(string vlanSalva) {
+  for (auto& i : vlanSalva) {
+    if (!isalnum(i)) {
+      cerr << RED_TEXT "O valor da vlan deve ser entre um numero inteiro de 1-4094!" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    int w = stoi(vlanSalva);
 
-// bool verificaMac() {
-//   return false;
-// }
+    if (w <= 4094 && w >= 1) {
+      return true;
+    } else {
+      cerr << RED_TEXT "O valor da pon deve ser entre 1-4094!" RESET_TEXT << endl;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << RED_TEXT "O valor da vlan deve ser entre um numero inteiro de 1-4094!" RESET_TEXT << endl;
+  }
+  return false;
+}
+
+bool verificaMac(string mac) {
+  for (auto& i : mac) {
+    if (!isxdigit(i)) {
+      cerr << BOLD_TEXT RED_TEXT "O valor do mac deve conter apenas caracteres hexadecimais!" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    if (mac.size() == 8) {
+      return true;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << BOLD_TEXT RED_TEXT "O valor do mac deve conter 8 caracteres hexadecimais!" RESET_TEXT << endl;
+  }
+  return false;
+}
+
+bool verificaEscolha(string escolha) {
+  for (auto& i : escolha) {
+    if (!isalnum(i)) {
+      cerr << BOLD_TEXT RED_TEXT "O valor deve ser entre um numero inteiro de 1-2!" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    int y = stoi(escolha);
+    if (y <= 2 && y >= 1 && escolha.size() == 1) {
+      return true;
+    } else {
+      cerr << BOLD_TEXT RED_TEXT "O valor deve ser entre um numero inteiro de 1-2!" RESET_TEXT << endl;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << BOLD_TEXT RED_TEXT "O valor deve ser entre um numero inteiro de 1-2!" RESET_TEXT << endl;
+  }
+  return false;
+}
+
+bool verificaMacVendor(string macVendor) {
+  for (auto& i : macVendor) {
+    if (!isalpha(i)) {
+      cerr << BOLD_TEXT RED_TEXT "O valor do vendor deve conter apenas caracteres alfabeticos!" RESET_TEXT << endl;
+      return false;
+    }
+  }
+  try {
+    if (macVendor.size() == 4) {
+      return true;
+    } else {
+      cerr << BOLD_TEXT RED_TEXT "O valor do vendor deve ser conter 4 caracteres" RESET_TEXT << endl;
+    }
+  }
+  catch (const std::exception& e) {
+    cerr << BOLD_TEXT RED_TEXT "O valor do vendor deve ser conter 4 caracteres" RESET_TEXT << endl;
+  }
+  return false;
+}
 
 void helloMessage() {
-  char pattern[100][100] = { GREEN_TEXT
+  char pattern[100][100] = { BOLD_TEXT GREEN_TEXT
           " ===================================================== ",
           " #                                                   # ",
           " #           Copyright Intelbras 2023.               # ",
@@ -99,47 +172,43 @@ void helloMessage() {
   }
 }
 
-void printResultado(string mac, string cpe, int slot, int pon, int vlan) {
+void printResultado(string mac, string cpe, string macVendor, int slot, int pon, int vlan) {
   printf("\x1b[2J");
   printf("\x1b[H");
-  cout << "Copiar e colar os comandos abaixo (linha por linha) no terminal "
-    "da OLT"
-    << endl
-    << endl;
+  cout << BOLD_TEXT PURPLE_TEXT "Copiar e colar os comandos abaixo (linha por linha) no terminal "
+    "da OLT" RESET_TEXT << endl << endl;
 
-  cout << "onu set " << CYAN_TEXT"1/" << pon << "/" << slot << RESET_TEXT " meprof intelbras-"
-    PINK_TEXT << cpe << RESET_TEXT" vendorid ZNTS serno fsan " YELLOW_TEXT << mac << RESET_TEXT << endl;
-  cout << "create gpon-olt-onu-config " << CYAN_TEXT "1-1-" << pon << "-" << slot
+  cout << "onu set " << BOLD_TEXT CYAN_TEXT"1/" << pon << "/" << slot << RESET_TEXT " meprof intelbras-"
+    BOLD_TEXT PINK_TEXT << cpe << RESET_TEXT" vendorid ZNTS serno fsan " BOLD_TEXT CYAN_TEXT << mac << RESET_TEXT << endl;
+  cout << "create gpon-olt-onu-config " << BOLD_TEXT CYAN_TEXT "1-1-" << pon << "-" << slot
     << RESET_TEXT "/gpononu" << endl;
-  cout << "set serial-no-vendor-id = ITBS" << endl;
-  cout << "commit gpon-olt-onu-config " << CYAN_TEXT "1-1-" << pon << "-" << slot
+  cout << "set serial-no-vendor-id = " BOLD_TEXT CYAN_TEXT << macVendor << RESET_TEXT << endl;
+  cout << "commit gpon-olt-onu-config " << BOLD_TEXT CYAN_TEXT "1-1-" << pon << "-" << slot
     << RESET_TEXT "/gpononu" << endl;
   cout << endl;
 
   int slotcpemgr = 500 + slot;
 
-  if (cpe == "142ng" || cpe == "1420g") {
-    cout << "Copiar os valores de bridge downlink - Modo Router" << endl;
+  if (cpe == "110g") {
+    cout << BOLD_TEXT PURPLE_TEXT "Copiar os valores de bridge downlink - Modo Bridge" RESET_TEXT << endl;
     cout << endl;
-    cout << "bridge add 1-1-" << pon << "-" << slot
-      << "/gpononu downlink vlan " << vlan << " tagged rg" << endl;
+    cout << "bridge add" << BOLD_TEXT CYAN_TEXT" 1-1-" << pon << "-" << slot
+      << RESET_TEXT "/gpononu downlink vlan " BOLD_TEXT CYAN_TEXT << vlan << RESET_TEXT" tagged eth 1" << endl;
     cout << endl;
-    cout << "Para habilitar CPE-MGR, copiar os valores abaixo" << endl;
+  } else {
+    cout << BOLD_TEXT PURPLE_TEXT "Copiar os valores de bridge downlink - Modo Router" RESET_TEXT << endl;
     cout << endl;
-    cout << "cpe-mgr add local 1-1-" << pon << "-" << slotcpemgr
-      << "/gponport gtp 1100000000" << endl;
-    cout << "bridge add 1-1-" << pon << "-" << slot
-      << "/gpononu gem 514 gtp 1100000000 downlink vlan " << vlan
-      << " tagged rg" << endl
+    cout << "bridge add " << BOLD_TEXT CYAN_TEXT "1-1-" << pon << "-" << slot
+      << RESET_TEXT "/gpononu downlink vlan " BOLD_TEXT CYAN_TEXT << vlan << RESET_TEXT" tagged rg" << endl;
+    cout << endl;
+    cout << BOLD_TEXT PURPLE_TEXT "Para habilitar CPE-MGR, copiar os valores abaixo" RESET_TEXT << endl;
+    cout << endl;
+    cout << "cpe-mgr add local " << BOLD_TEXT CYAN_TEXT "1-1-" << pon << "-" << slotcpemgr
+      << RESET_TEXT "/gponport gtp 1100000000" << endl;
+    cout << "bridge add " << BOLD_TEXT CYAN_TEXT"1-1-" << pon << "-" << slot
+      << RESET_TEXT "/gpononu gem 514 gtp 1100000000 downlink vlan " BOLD_TEXT CYAN_TEXT << vlan
+      << RESET_TEXT" tagged rg" << endl
       << endl;
-  }
-
-  else if (cpe == "110g") {
-    cout << "Copiar os valores de bridge downlink - Modo Bridge" << endl;
-    cout << endl;
-    cout << "bridge add 1-1-" << pon << "-" << slot
-      << "/gpononu downlink vlan " << vlan << " tagged eth 1" << endl;
-    cout << endl;
   }
 }
 
@@ -151,93 +220,115 @@ int main() {
 
     do {
       string ponCpe, slotCpe, vlanCpe, mac, cpe;
-      int slot, pon, vlan, w = 0, x = 0, y = 0, z = 0;
-      bool cpeVerifica = false;
+      string vendor, macVendor, cpeVerifica, cpeWifi;
+      int slot, pon, vlan;
 
       do {
-        cout << "Qual a PON que a CPE se encontra ?" << endl;
+        cout << YELLOW_TEXT "Qual a PON que a CPE se encontra ?" RESET_TEXT << endl;
         cin >> ponCpe;
       } while (!verificaPorta(ponCpe));
 
       pon = stoi(ponCpe);
 
       do {
-        cout << "Qual o slot na PON que voce deseja provisionar a CPE ?"
-          << endl;
+        cout << YELLOW_TEXT "Qual o slot na PON que voce deseja provisionar a CPE ?" RESET_TEXT << endl;
         cin >> slotCpe;
       } while (!verificaOnu(slotCpe));
 
       slot = stoi(slotCpe);
 
-      while (!cpeVerifica) {
-        string x;
-        cout << "Ela ira operar em modo router ou bridge ?" << endl;
-        cin >> x;
+      do {
+        cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # A ONT/ONU é Intelbras ou de Terceiros?            # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # Digite o numero que corresponde a sua CPE!        # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # 1---Intelbras                                     # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # 2---Terceiros                                     # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+        cin >> vendor;
+      } while (!verificaEscolha(vendor));
 
-        for (auto& i : x) {
-          cpe += tolower(i);
-        }
+      switch (stoi(vendor)) {
+        case 1:
+          macVendor = "ITBS";
+          break;
+        case 2:
+          do {
+            cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # Qual o vendor/sn/modelo dessa ONT/ONU?            # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # Exemplo: ZNTS/HWTC/FHTT...etc!                    # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+            cin >> macVendor;
+          } while (!verificaMacVendor(macVendor));
+          for (char& c : macVendor) {
+            c = std::toupper(c);
+          }
+          break;
 
-        if (cpe == "router") {
-          string cpeCaptura;
-          int cpeCapturaConvert;
-          cout << "===================================================== " << endl;
-          cout << "Qual modelo de CPE voce esta utilizando?" << endl;
-          cout << "Digite o numero que corresponde a sua CPE" << endl;
-          cout << "1---142NG/142NW/121W/WiFiber 121AC" << endl;
-          cout << "2---1420g/R1" << endl;
-          cin >> cpeCaptura;
+        default:
+          cout << BOLD_TEXT RED_TEXT "Parametro de Vendor invalido, encerrando programa..." RESET_TEXT << endl;
+          return 0;
+          break;
+      }
 
-          cpeCapturaConvert = stoi(cpeCaptura);
-          switch (cpeCapturaConvert) {
+      do {
+        cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # Ela ira operar em modo router ou bridge?          # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # Digite o numero que corresponde a sua CPE!        # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # 1---Router                                        # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " # 2---Bridge                                        # " RESET_TEXT << endl;
+        cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+        cin >> cpeVerifica;
+      } while (!verificaEscolha(cpeVerifica));
+
+      switch (stoi(cpeVerifica)) {
+        case 1:
+          do {
+            cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # A CPE tem rede wifi?                              # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # Digite o numero que corresponde a sua CPE         # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # 1---Sim                                           # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " # 2---Nao                                           # " RESET_TEXT << endl;
+            cout << GREEN_TEXT " ===================================================== " RESET_TEXT << endl;
+            cin >> cpeWifi;
+          } while (!verificaEscolha(cpeWifi));
+
+          switch (stoi(cpeWifi)) {
             case 1:
-              cpeVerifica = true;
               cpe = "142ng";
               break;
             case 2:
-              cpeVerifica = true;
               cpe = "1420g";
               break;
             default:
-              cout << "Opcao invalida" << endl;
-              cpe.clear();
-              cpeCaptura.clear();
+              cout << BOLD_TEXT RED_TEXT "Parametro de Wifi invalido, encerrando programa..." RESET_TEXT << endl;
+              return 0;
               break;
           }
-
-        } else if (cpe == "bridge") {
-          cpeVerifica = true;
+          break;
+        case 2:
           cpe = "110g";
-        } else {
-          cout << "modo invalido" << endl;
-          cpe.clear();
-        }
+          break;
+        default:
+          cout << BOLD_TEXT RED_TEXT "Parametro do modo de operacao invalido, encerrando programa..." RESET_TEXT << endl;
+          return 0;
+          break;
       }
 
-      while (x != 8) {
-        cout << "Digite os ultimos 8 digitos do MAC da CPE: " << endl;
+      do {
+        cout << YELLOW_TEXT "Digite os ultimos 8 digitos do MAC da CPE: " RESET_TEXT << endl;
         cin >> mac;
-        x = mac.size();
-      }
+      } while (!verificaMac(mac));
 
-      while (w >= 4094 || w <= 0) {
-        string vlanSalva;
-        cout << "Qual a vlan sera utilizada ?" << endl;
+      do {
+        cout << YELLOW_TEXT "Qual a vlan sera utilizada ?" RESET_TEXT << endl;
         cin >> vlanCpe;
-        cout << endl;
-        for (auto& i : vlanCpe) {
-          if (!isalnum(i)) {
-            break;
-          }
-          vlanSalva += i;
-        }
+      } while (!verificaVlan(vlanCpe));
 
-        w = vlan = stoi(vlanSalva);
-        vlanCpe.clear();
-      }
-      printResultado(mac, cpe, slot, pon, vlan);
+      vlan = stoi(vlanCpe);
 
-      cout << "Deseja provisionar novamente? S/N" << endl;
+      printResultado(mac, cpe, macVendor, slot, pon, vlan);
+
+      cout << YELLOW_TEXT "Deseja provisionar novamente? S/N" RESET_TEXT << endl;
       cin >> saida;
       saida = toupper(saida);
       ponCpe.clear();
@@ -247,7 +338,7 @@ int main() {
     } while (saida != 'N');
   }
   catch (...) {
-    cout << RED_TEXT "algum parametro nao foi reconhecido, encerrando programa..." RESET_TEXT
+    cout << BOLD_TEXT RED_TEXT "algum parametro nao foi reconhecido, encerrando programa..." RESET_TEXT
       << endl;
   }
 }
